@@ -93,7 +93,7 @@ def main(file_path):
 
 # 테스트용 메인 함수
 if __name__ == "__main__":
-    file_path = "/Users/imdohyeon/Documents/PythonWorkspace/NeuroTalk-Implement/Data/cyj_spoken.mff"  # 실제 EEG 데이터 파일 경로를 입력하세요.
+    file_path = "your_directory.mff"
     clean_eeg, info = main(file_path)
     print("EEG 아티팩트 제거 완료")
 
