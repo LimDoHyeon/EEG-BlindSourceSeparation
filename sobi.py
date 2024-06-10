@@ -3,7 +3,7 @@ from scipy.linalg import eigh, inv
 
 class SOBI:
     """
-    Second Order Blind Identification (SOBI) 알고리즘을 이용한 독립 성분 분석
+    Second Order Blind Identification (SOBI) 알고리즘을 이용한 Blind Source Separation
 
     Args:
     n_sources (int): 추정할 소스의 수
