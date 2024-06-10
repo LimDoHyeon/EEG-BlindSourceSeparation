@@ -37,7 +37,7 @@ def calculate_fractal_dimension(signal):
     x = x / np.max(x)
     y = (y - np.min(y)) / (np.max(y) - np.min(y))
 
-    # 각 점들 사이의 거리 계산 - 이렇게 계산해도 되는지는 모르겠음
+    # 각 점들 사이의 거리 계산
     L = sum(np.sqrt(np.diff(x) ** 2 + np.diff(y) ** 2))
 
     # 프랙탈 차원 계산
