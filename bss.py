@@ -9,7 +9,7 @@ import sobi
 import Utility.util as util
 
 
-# SOBI를 이용한 혼합 행렬 추정 모듈  -> 검증 완료
+# SOBI를 이용한 혼합 행렬 추정 모듈
 def estimate_mixing_matrix(eeg_data):
     """
     SOBI 알고리즘을 사용하여 혼합 행렬을 추정합니다.
@@ -27,7 +27,7 @@ def estimate_mixing_matrix(eeg_data):
 
     return sources, mixing_matrix
 
-# Sevcik's algorithm을 이용한 프랙탈 차원 계산 모듈 -> 일단 검증 완료
+# Sevcik's algorithm을 이용한 프랙탈 차원 계산 모듈
 def calculate_fractal_dimension(signal):
     N = len(signal)  # 신호의 샘플 수
     x = np.arange(N)  # 파형의 샘플 인덱스
@@ -44,7 +44,7 @@ def calculate_fractal_dimension(signal):
     fractal_dimension = 1 + np.log(L) / np.log(2 * (N - 1))
     return fractal_dimension
 
-# 각 신호를 일정한 길이의 프레임으로 나누어 프랙탈 차원을 계산하고, 그 평균을 구함 -> 검증 완료
+# 각 신호를 일정한 길이의 프레임으로 나누어 프랙탈 차원을 계산하고, 그 평균을 구함
 def calculate_mean_fractal_dimension(eeg_data, frame_length_ratio=0.1):
     fds = []
     frame_length = int(eeg_data.shape[1] * frame_length_ratio)
@@ -62,7 +62,7 @@ def calculate_mean_fractal_dimension(eeg_data, frame_length_ratio=0.1):
     return np.array(fds)
 
 
-# EOG 성분 식별 모듈 -> 검증 완료
+# EOG 성분 식별 모듈
 def identify_eog_components(fractal_dimensions):
     sorted_indices = np.argsort(fractal_dimensions)  # 프랙탈 차원 값 기준으로 '인덱스'들을 오름차순 정렬
     sorted_fds = fractal_dimensions[sorted_indices]  # sorted_indices에서 정렬한 인덱스 번호 기준으로 실제 '값' 정렬
@@ -73,7 +73,7 @@ def identify_eog_components(fractal_dimensions):
             break
     return sorted_indices[:k]  # Identify as EOG components s(1)(t),s(2)(t),...,s(k)(t)
 
-# 공간 필터링 및 EEG 신호 복원 모듈 -> 검증 완료
+# 공간 필터링 및 EEG 신호 복원 모듈
 def reconstruct_clean_eeg(eeg_data, mixing_matrix, eog_components):
     A_EEG = np.delete(mixing_matrix, eog_components, axis=1)  # EOG 성분을 제거한 혼합 행렬
     S_EEG = np.delete(eeg_data, eog_components, axis=0)  # EOG 성분을 제거한 소스 신호
@@ -93,7 +93,7 @@ def main(file_path):
 
 # 테스트용 메인 함수
 if __name__ == "__main__":
-    file_path = "/Users/imdohyeon/Documents/PythonWorkspace/NeuroTalk-Implement/Data/cyj_spoken.mff"  # 실제 EEG 데이터 파일 경로를 입력하세요.
+    file_path = "your_data.mff"  # 실제 EEG 데이터 파일 경로를 입력하세요.
     clean_eeg, info = main(file_path)
     print("EEG 아티팩트 제거 완료")
 
