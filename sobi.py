@@ -38,11 +38,20 @@ class SOBI:
 
         X_whitened = np.dot(Q, X_centered)
 
+        L = 100  # number of lags
+        R = np.zeros((self.n_sources, self.n_sources, L))
+        for k in range(L):
+            X_lag = X_whitened[:, k:N]  # k 열부터 끝까지
+            X_lead = X_whitened[:, :N - k]  # 시작부터 N-k 열까지
+            R[:, :, k] = np.dot(X_lag, X_lead.T) / (N - k)
+
+        """
         # Covariance matrices at multiple lags
         L = 100  # number of lags
         R = np.zeros((self.n_sources, self.n_sources, L))
         for k in range(L):
             R[:, :, k] = np.dot(X_whitened[:, k:], X_whitened[:, :-k - 1].T) / (N - k)
+        """
 
         # Joint diagonalization
         B = Q
